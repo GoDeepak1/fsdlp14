@@ -1,0 +1,365 @@
+PROGRAM1
+
+
+
+
+
+
+views.html
+
+from django.shortcuts import render
+from django.http import HttpResponse
+import datetime
+
+# Create your views here.
+def dtime(request):
+    dt=datetime.datetime.now()
+    html="<html><h1>Current datetime is %s</h1></html>" %(dt)
+    return HttpResponse(html)
+
+
+
+urls.py
+
+"""
+URL configuration for proj1 project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path
+from app1.views import dtime
+from app2.views import dTimeFour
+from app3.views import fruitStud
+from app4.views import home,aboutus,contactus
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('name/',dtime),
+    #path('dt/',dTimeFour),
+    #path('list/',fruitStud)
+    # path('',home),
+    # path('AboutUs/',aboutus),
+    # path('ContactUs/',contactus),
+    # path('home/',home),
+
+
+]
+
+
+
+
+
+
+
+
+PROGRAM2
+
+
+
+
+
+views.py
+
+from django.shortcuts import render
+import datetime
+from django.http import HttpResponse
+
+# Create your views here.
+def dTimeFour(request):
+    tp=datetime.datetime.now()+datetime.timedelta(hours=4)
+    tm=datetime.datetime.now()+datetime.timedelta(hours=-4)
+    html="<html><h1>Time ahead is %s</h1><h1>Time before is %s</h1></html>"%(tp,tm)
+    return HttpResponse(html)
+
+
+
+urls.py
+
+
+"""
+URL configuration for proj1 project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path
+from app1.views import dtime
+from app2.views import dTimeFour
+from app3.views import fruitStud
+from app4.views import home,aboutus,contactus
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    #path('name/',dtime),
+    path('',dTimeFour),
+    #path('list/',fruitStud)
+    # path('',home),
+    # path('AboutUs/',aboutus),
+    # path('ContactUs/',contactus),
+    # path('home/',home),
+
+
+]
+
+
+
+
+
+
+
+
+
+PROGRAM3
+
+
+
+
+
+views.py
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def fruitStud(request):
+    fruitList=['Mango','Apple','Guava','Banana']
+    studList=['x','y','z','a','b']
+    return render(request,'index.html',{'fruit':fruitList,'studList':sorted(studList)})
+
+
+
+
+
+
+index.html
+
+
+
+  <!DOCTYPE html> 
+<html> 
+    <head> 
+        <style> 
+            #a1{background-color: lightblue;color:brown} 
+            #a2{background-color:blue;color:yellow} 
+        </style> 
+        <title> 
+            Unordered Fruits and Ordered Students 
+        </title> 
+    </head> 
+    <body> 
+        <h1 id="a1">Unordered List of Fruits</h1> 
+        <ul> 
+            {% for fruit in fruit %} 
+            <li>{{fruit}}</li> 
+            {% endfor %} 
+        </ul> 
+        <h1 id="a2">Ordered List of Students Selected for an Event</h1> 
+        <ol> 
+            {% for student in studList %} 
+            <li>{{student}}</li> 
+            {% endfor %} 
+        </ol> 
+    </body> 
+</html>
+
+
+
+
+
+
+
+url.py
+
+
+
+
+"""
+URL configuration for proj1 project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path
+from app1.views import dtime
+from app2.views import dTimeFour
+from app3.views import fruitStud
+from app4.views import home,aboutus,contactus
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # path('name/',dtime),
+    #path('dt/',dTimeFour),
+    path('list/',fruitStud)
+    # path('',home),
+    # path('AboutUs/',aboutus),
+    # path('ContactUs/',contactus),
+    # path('home/',home),
+
+
+]
+
+
+
+PROGRAM4
+
+
+
+
+
+views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+def home(request):
+    return render(request,'home.html')
+def contactus(request):
+    return render(request,'contactus.html')
+def aboutus(request):
+    return render(request,'aboutus.html')
+
+
+
+
+layout.html
+
+<DOCTYPE html>
+    <html>
+        <head>
+            {%block title%}{%endblock%}
+        </head>
+        <body>
+            <nav style="background-color:magenta">
+            <a href="/home">HOME</a>
+            <a href="/AboutUs">AboutUs</a>
+            <a href="/ContactUs">ContactUs</a>
+            {%block content%}{%endblock%}
+            <hr>
+            </nav>
+            <footer>
+                <nav style="color:red; background-color:yellow">
+                &copy;Designed and Developed by;BIT;CSE
+                </nav>
+            </footer>
+        </body>
+    </html>
+
+
+
+
+home.html
+
+{%extends 'layout.html'%}
+{%block title%}HOMEPAGE{%endblock%}
+{%block content%}
+    <h1>This is my Home Page</h1>
+
+
+
+{%endblock%}
+
+
+
+
+contactus.html
+{%extends 'layout.html'%}
+{%block title%}HOMEPAGE{%endblock%}
+{%block content%}
+    <h1>This is my ContactUs Page</h1>
+
+
+
+{%endblock%}
+
+
+
+aboutus.html
+
+
+{%extends 'layout.html'%}
+{%block title%}HOMEPAGE{%endblock%}
+{%block content%}
+    <h1>This is my AboutUs Page</h1>
+
+
+
+{%endblock%}
+
+
+urls.py
+
+
+
+
+"""
+URL configuration for proj1 project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.0/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+
+from django.contrib import admin
+from django.urls import path
+from app1.views import dtime
+from app2.views import dTimeFour
+from app3.views import fruitStud
+from app4.views import home,aboutus,contactus
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # path('name/',dtime),
+    #path('dt/',dTimeFour),
+    #path('list/',fruitStud)
+    path('',home),
+    path('AboutUs/',aboutus),
+    path('ContactUs/',contactus),
+    path('home/',home),
+
+
+]
